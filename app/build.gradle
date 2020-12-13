@@ -28,12 +28,6 @@ ext.versionMinor = 2 // New features in a backwards-compatible manner
 ext.versionPatch = 0 // Backwards-compatible bug fixes
 ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 
-// App version
-ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
-ext.versionMinor = 2 // New features in a backwards-compatible manner
-ext.versionPatch = 0 // Backwards-compatible bug fixes
-ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
-
 // Get signing config
 def keystorePropertiesFile = rootProject.file("secrets/keystore.properties")
 def keystoreProperties = new Properties()
@@ -44,24 +38,6 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
 
-<<<<<<< HEAD
-    defaultConfig {
-        applicationId "com.davidmiguel.gobees"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode generateVersionCode()
-        versionName generateVersionName()
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                crashlyticsKey: keystoreProperties['CrashlyticsKey']
-        ]
-        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
-        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
-        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
-    }
-
-=======
->>>>>>> eb0508757b08cc47d9d284b565d64384510d6d64
     signingConfigs {
         debug {
             keyAlias keystoreProperties['keyAliasDebug']
@@ -221,7 +197,7 @@ dependencies {
     // Timber (logger) : https://github.com/JakeWharton/timber
     compile 'com.jakewharton.timber:timber:4.5.1'
     // Crashlytics (Crash reporting) : https://docs.fabric.io/android/changelog.html#crashlytics
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
         transitive = true;
     }
 
@@ -306,11 +282,7 @@ sonarqube {
  * Returns the number of the current build in Travis.
  */
 private static Integer getBuildNumber() {
-<<<<<<< HEAD
-    return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 0
-=======
     return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 1
->>>>>>> eb0508757b08cc47d9d284b565d64384510d6d64
 }
 
 /**
