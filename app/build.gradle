@@ -20,6 +20,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
 apply plugin: 'realm-android'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
+
+// App version
+ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
+ext.versionMinor = 2 // New features in a backwards-compatible manner
+ext.versionPatch = 0 // Backwards-compatible bug fixes
+ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
 
 // App version
 ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
@@ -37,6 +44,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
 
+<<<<<<< HEAD
     defaultConfig {
         applicationId "com.davidmiguel.gobees"
         minSdkVersion 19
@@ -52,6 +60,8 @@ android {
         buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
     }
 
+=======
+>>>>>>> eb0508757b08cc47d9d284b565d64384510d6d64
     signingConfigs {
         debug {
             keyAlias keystoreProperties['keyAliasDebug']
@@ -65,6 +75,33 @@ android {
             keyAlias keystoreProperties['keyAliasRelease']
             keyPassword keystoreProperties['keyPasswordRelease']
         }
+    }
+
+    playAccountConfigs {
+        defaultAccountConfig {
+            serviceAccountEmail = keystoreProperties['serviceAccountEmail']
+            jsonFile = file(keystoreProperties['googlePlayKey'])
+        }
+    }
+
+    play {
+        track = 'beta'
+    }
+
+    defaultConfig {
+        applicationId "com.davidmiguel.gobees"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode generateVersionCode()
+        versionName generateVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                crashlyticsKey: keystoreProperties['CrashlyticsKey']
+        ]
+        buildConfigField 'String', 'COMMIT_HASH', "\"${getCommitHash()}\""
+        buildConfigField 'String', 'BUILD_DATE', "\"${getBuildDate()}\""
+        buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', keystoreProperties['OpenWeatherMapApiKey']
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     buildTypes {
@@ -269,7 +306,11 @@ sonarqube {
  * Returns the number of the current build in Travis.
  */
 private static Integer getBuildNumber() {
+<<<<<<< HEAD
     return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 0
+=======
+    return System.getenv()["TRAVIS_BUILD_NUMBER"] as Integer ?: 1
+>>>>>>> eb0508757b08cc47d9d284b565d64384510d6d64
 }
 
 /**
